@@ -1,0 +1,88 @@
+/* The music pill stays in the header while the seven steps change. */
+#sound {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  background: linear-gradient(135deg, #ffb4d814, #cbb4ff0c);
+  border: 1px solid #efc9ff29;
+  box-shadow: inset 0 1px 0 #ffffff0a;
+  color: #e7d8ee;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: background .25s, border-color .25s, box-shadow .25s;
+  touch-action: manipulation;
+}
+#sound.is-playing {
+  color: #ffc2db;
+  background: linear-gradient(135deg, #ff95c022, #bfa3fa14);
+  border-color: #ffb5d64a;
+  box-shadow: 0 0 20px #ff92be0c, inset 0 1px 0 #ffffff0a;
+}
+header.is-playing #sound::before {
+  content: '';
+  width: 13px;
+  height: 13px;
+  background: linear-gradient(90deg,
+    currentColor 0 2px, transparent 2px 5px,
+    currentColor 5px 8px, transparent 8px 11px,
+    currentColor 11px 13px);
+  border-radius: 2px;
+  transform-origin: center;
+  animation: music-wave .85s ease-in-out infinite alternate;
+  opacity: .85;
+}
+#sound:disabled, #musicIntro:disabled {
+  cursor: progress;
+  opacity: .72;
+}
+#musicIntro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  margin: 0 0 8px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid #ffd3e331;
+  background: linear-gradient(115deg, #f6b7d31a, #b9abef12);
+  color: #f4c9df;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: .2px;
+  box-shadow: 0 8px 30px #ff92be08, inset 0 1px 0 #ffffff09;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  touch-action: manipulation;
+  transition: background .2s, transform .2s;
+}
+#musicIntro:active { transform: scale(.98); }
+#musicIntro[hidden], #musicStatus[hidden] { display: none; }
+#musicStatus {
+  margin: 0 0 20px;
+  color: #bba8c6;
+  font-size: 11px;
+  line-height: 1.7;
+  text-align: center;
+}
+@keyframes music-wave {
+  0% { transform: scaleY(.35); }
+  40% { transform: scaleY(1); }
+  75% { transform: scaleY(.55); }
+  100% { transform: scaleY(.9); }
+}
+@media (max-width: 360px) {
+  header { gap: 8px; }
+  #sound { padding: 8px 10px; font-size: 11px; gap: 5px; }
+  header.is-playing #sound::before { width: 10px; }
+  #musicIntro { padding: 11px 10px; font-size: 11px; letter-spacing: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  header.is-playing #sound::before { animation: none; }
+  #sound, #musicIntro { transition: none; }
+}
