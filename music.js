@@ -183,7 +183,8 @@
     if (event.type === 'keydown' && !['Enter', ' '].includes(event.key)) return;
     if (!everPlayed && !manualPaused && !failed) void start(false);
   }
-  document.addEventListener(window.PointerEvent ? 'pointerdown' : 'touchend', firstInteraction, {
+  // Touch browsers grant activation on pointerup/touchend, after a tap finishes.
+  document.addEventListener(window.PointerEvent ? 'pointerup' : 'touchend', firstInteraction, {
     capture: true,
     passive: true
   });
